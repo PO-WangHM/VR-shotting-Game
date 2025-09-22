@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, getBulletValues
 {
+    [Header("Enemy Settings")]
     public float InitialHealth = 5f; // 敌人初始生命值
     public float xpValue = 50f; // 击败敌人获得的经验值
+    [Header("Movement Settings")]
+    public float moveSpeed = 3f; // 怪物移动速度
 
 
     protected float currentHealth; // 当前生命值
@@ -23,7 +26,26 @@ public class Enemy : MonoBehaviour, getBulletValues
         // 每帧调用受伤方法
         TakeDamage();
 
-        // 每帧检查当前生命值,当生命值小于等于0时销毁敌人
+        //怪物移动
+        Move();
+
+        // 当生命值小于等于0时怪物死亡
+        Die();
+    }
+     
+    //获取子弹伤害值
+    public void GetDamageValue(float damageValue)
+    {
+        damage = damageValue;
+    }
+    //计算怪物受到伤害
+    public virtual void TakeDamage()
+    {
+        currentHealth -= damage;
+        damage = 0; // 重置伤害值，防止持续扣血
+    }
+    public virtual void Die()
+    {
         if (currentHealth <= 0)
         {
             // 找到名字为Canvas对象并获取其getEnemyValue脚本组件
@@ -40,16 +62,9 @@ public class Enemy : MonoBehaviour, getBulletValues
             Destroy(gameObject);
         }
     }
-     
-    //获取子弹伤害值
-    public void GetDamageValue(float damageValue)
+
+    public virtual void Move()
     {
-        damage = damageValue;
-    }
-    //计算怪物受到伤害
-    public virtual void TakeDamage()
-    {
-        currentHealth -= damage;
-        damage = 0; // 重置伤害值，防止持续扣血
+        transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
     }
 }

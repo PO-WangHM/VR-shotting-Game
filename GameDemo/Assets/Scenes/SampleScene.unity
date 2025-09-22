@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 605323088016064760, guid: 5b1fefd17032fce4983915a18ee81c72, type: 3}
   spawnPoint: {fileID: 2038626282}
-  bulletSpeed: 10
+  bulletSpeed: 5
   bulletLifetime: 4
   shotsPerSecond: 1
 --- !u!1 &2096261561
