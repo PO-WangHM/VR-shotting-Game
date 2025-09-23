@@ -67,4 +67,11 @@ public class Enemy : MonoBehaviour, getBulletValues
     {
         transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
     }
+
+    public virtual void OnTriggerEnter(Collider collision)
+    {
+       
+    }
+
+
 }

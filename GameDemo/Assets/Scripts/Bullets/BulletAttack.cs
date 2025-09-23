@@ -9,18 +9,17 @@ public class BulletAttack : MonoBehaviour
     private float currentDamageValue; // 当前伤害值
 
 
-    void Start()
+    protected virtual void Start()
     {
         currentDamageValue = InitialDamageValue;
     }
-    
-    void Update()
+
+    protected virtual void Update()
     {
 
     }
-
     // 当子弹碰撞到敌人时触发
-    void OnTriggerEnter(Collider collision)
+    public virtual void OnTriggerEnter(Collider collision)
     {
         // 检查是否碰撞到敌人
         if (collision.gameObject.CompareTag("Enemy"))
@@ -35,8 +34,10 @@ public class BulletAttack : MonoBehaviour
                 gbv.GetDamageValue(currentDamageValue);
             }
 
-            // 碰撞后销毁子弹
+            
             Destroy(gameObject);
+            // 碰撞后销毁子弹
+           
         }
     }
 }

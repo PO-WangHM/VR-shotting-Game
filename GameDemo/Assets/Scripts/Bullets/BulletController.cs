@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     [Header("Bullet Settings")]
-    public GameObject bulletPrefab; // 子弹预制体
+    public GameObject[] bulletPrefab; // 子弹预制体
     public Transform spawnPoint; // 子弹生成点
     public float bulletSpeed = 20f; // 子弹速度
     public float bulletLifetime = 4f; // 子弹存在时间
@@ -50,7 +50,7 @@ public class BulletController : MonoBehaviour
         }
 
         // 实例化子弹
-        GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject bullet = Instantiate(bulletPrefab[0], spawnPoint.position, spawnPoint.rotation);
 
         // 添加速度
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
