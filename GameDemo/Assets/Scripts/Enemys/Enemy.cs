@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, getBulletValues
+public class Enemy : MonoBehaviour
 {
     [Header("Enemy Settings")]
     public float InitialHealth = 5f; // 敌人初始生命值
@@ -48,17 +48,6 @@ public class Enemy : MonoBehaviour, getBulletValues
     {
         if (currentHealth <= 0)
         {
-            // 找到名字为Canvas对象并获取其getEnemyValue脚本组件
-            GameObject cavence = GameObject.Find("Canvas");
-            if (cavence != null)
-            {
-                getEnemyValue gev = cavence.GetComponent<getEnemyValue>();
-                if (gev != null)
-                {
-                    // 调用接口的TakeDamage方法
-                    gev.getXP(xpValue);
-                }
-            }
             Destroy(gameObject);
         }
     }
@@ -70,8 +59,16 @@ public class Enemy : MonoBehaviour, getBulletValues
 
     public virtual void OnTriggerEnter(Collider collision)
     {
-       
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            // 获取子弹伤害值
+            OutputBulletValues obv = collision.gameObject.GetComponent<OutputBulletValues>();
+
+            if (obv != null)
+            {
+                // 调用接口的TakeDamage方法
+                damage = obv.outputDamage();
+            }
+        }
     }
-
-
 }
