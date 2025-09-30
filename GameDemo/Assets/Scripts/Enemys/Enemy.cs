@@ -14,10 +14,11 @@ public class Enemy : MonoBehaviour
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
 
+    //冰属性子弹参数
     private float currentspeed = 0f;
     private float ST = 0;
     private float SR = 0;
-    private float timer;//冰子弹减速计时器
+    private float Icetimer;//冰子弹减速计时器
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -46,12 +47,12 @@ public class Enemy : MonoBehaviour
             {
                 SlowDown();
             }
-            
-            timer += Time.deltaTime;
-            if(timer>=ST)
+
+            Icetimer += Time.deltaTime;
+            if(Icetimer >= ST)
             {
                 ST = 0;
-                timer = 0;
+                Icetimer = 0;
                 currentspeed = moveSpeed;
             }
         }
