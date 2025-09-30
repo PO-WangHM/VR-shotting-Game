@@ -6,7 +6,7 @@ public class BulletAttack : MonoBehaviour, OutputBulletValues
 {
     public float InitialDamageValue = 5f; // 子弹初始伤害
 
-    private float currentDamageValue; // 当前伤害值
+    protected float currentDamageValue; // 当前伤害值
 
 
     protected virtual void Start()
