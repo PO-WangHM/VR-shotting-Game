@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour
                 // 调用接口的TakeDamage方法
                 ST = obv.outputST();
                 SR = obv.outputSR();
-                timer = 0;
+                Icetimer = 0;
             }
             
         }
