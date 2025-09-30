@@ -14,15 +14,22 @@ public class Enemy : MonoBehaviour
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
 
+    private float currentspeed = 0f;
+    private float ST = 0;
+    private float SR = 0;
+    private float timer;//冰子弹减速计时器
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         currentHealth = InitialHealth;
+        currentspeed = moveSpeed;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+        
         // 每帧调用受伤方法
         TakeDamage();
 
@@ -31,6 +38,25 @@ public class Enemy : MonoBehaviour
 
         // 当生命值小于等于0时怪物死亡
         Die();
+
+        //减速效果
+        if(ST!=0)
+        {
+            if(SR!= 0)
+            {
+                SlowDown();
+            }
+            
+            timer += Time.deltaTime;
+            if(timer>=ST)
+            {
+                ST = 0;
+                timer = 0;
+                currentspeed = moveSpeed;
+            }
+        }
+        
+
     }
      
     //获取子弹伤害值
@@ -54,7 +80,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Move()
     {
-        transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.back * currentspeed * Time.deltaTime, Space.World);
     }
 
     public virtual void OnTriggerEnter(Collider collision)
@@ -70,5 +96,26 @@ public class Enemy : MonoBehaviour
                 damage = obv.outputDamage();
             }
         }
+        if (collision.gameObject.name.Contains("IceBullet"))
+        {
+            OutputBulletValues obv = collision.gameObject.GetComponent<OutputBulletValues>();
+
+           
+            if (obv != null)
+            {
+                // 调用接口的TakeDamage方法
+                ST = obv.outputST();
+                SR = obv.outputSR();
+                timer = 0;
+            }
+            
+        }
+
+    }
+
+    void SlowDown()
+    {
+        currentspeed = currentspeed * SR;
+        SR = 0;
     }
 }
