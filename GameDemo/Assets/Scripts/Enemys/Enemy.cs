@@ -29,14 +29,14 @@ public class Enemy : MonoBehaviour
     protected float Icetimer = 0;//冰子弹减速计时器
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    public virtual void Start()
     {
         currentHealth = InitialHealth;
         currentspeed = moveSpeed;
     }
 
     // Update is called once per frame
-    protected virtual void Update()
+    public virtual void Update()
     {
         
         // 每帧调用受伤方法
