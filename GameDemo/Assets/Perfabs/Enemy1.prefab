@@ -146,6 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f0f7959c8539242be84e7be16ecbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialHealth: 5
+  InitialHealth: 30
   xpValue: 50
-  moveSpeed: 2
+  moveSpeed: 1

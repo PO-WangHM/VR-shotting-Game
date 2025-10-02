@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallHealth : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public float WallHP = 100f;
+    public float HP = 100;
 
+    // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    // Update is called once per frame
     void Update()
     {
         Die();
@@ -21,13 +23,13 @@ public class WallHealth : MonoBehaviour
         // 检查是否碰撞到敌人
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            WallHP -= 100;
+            HP -= 100;
             Destroy(collision.gameObject);
         }
     }
     void Die()
     {
-        if (WallHP <= 0)
+        if (HP <= 0)
         {
             Time.timeScale = 0f;
         }

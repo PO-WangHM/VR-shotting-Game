@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7121788022369399370}
   - component: {fileID: 154906345873291253}
   - component: {fileID: 8665738288251697583}
-  - component: {fileID: 4549400623223141889}
+  - component: {fileID: -5878169197144116060}
   m_Layer: 0
-  m_Name: Bullet1
+  m_Name: FireBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1242e174f3d53084b996107d74c419fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4549400623223141889
+--- !u!114 &-5878169197144116060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 605323088016064760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad74a95d3bc94e449ae4adc3f0a6a422, type: 3}
+  m_Script: {fileID: 11500000, guid: c0890aeca6b97184ba761c6f9c95137d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InitialDamageValue: 5
+  countinuousDamage: 5
+  countinuousTime: 3
+  CDTimes: 5

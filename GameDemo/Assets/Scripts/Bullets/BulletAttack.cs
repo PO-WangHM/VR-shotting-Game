@@ -33,13 +33,4 @@ public class BulletAttack : MonoBehaviour, OutputBulletValues
     {
         return currentDamageValue;
     }
-
-    public virtual float outputST()
-    {
-        return 0;
-    }
-    public virtual float outputSR()
-    {
-        return 0;
-    }
 }

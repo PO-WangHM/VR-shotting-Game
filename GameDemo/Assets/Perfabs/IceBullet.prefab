@@ -147,5 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialDamageValue: 5
-  SlowTime: 10
+  SlowTime: 5
   SlowRate: 0.2
