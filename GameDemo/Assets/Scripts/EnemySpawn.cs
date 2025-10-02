@@ -9,25 +9,18 @@ public class EnemySpawn : MonoBehaviour
     public Transform[] spawnPoints; // 生成点数组
 
     [Header("Spawning Settings")]
-    public float spawnRate = 1f; // 每秒生成怪物数量
+    public float minSpawnInterval = 2f; // 最小生成间隔
+    public float maxSpawnInterval = 5f; // 最大生成间隔
     public int maxEnemies = 10; // 场景中最大怪物数量
 
     private float timer = 0f;
-    private float spawnInterval;
+    private float nextSpawnInterval; // 下一次生成的间隔时间
     private int currentEnemyCount = 0;
 
     void Start()
     {
-        // 计算生成间隔
-        if (spawnRate > 0)
-        {
-            spawnInterval = 1f / spawnRate;
-        }
-        else
-        {
-            spawnInterval = 1f;
-            Debug.LogWarning("Spawn rate cannot be zero or negative. Using default value.");
-        }
+        // 设置初始的生成间隔
+        SetRandomSpawnInterval();
     }
 
     void Update()
@@ -37,16 +30,23 @@ public class EnemySpawn : MonoBehaviour
 
         // 计时并生成怪物
         timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        if (timer >= nextSpawnInterval)
         {
             SpawnEnemy();
             timer = 0f;
+            SetRandomSpawnInterval(); // 为下一次生成设置新的随机间隔
         }
+    }
+
+    void SetRandomSpawnInterval()
+    {
+        // 在最小和最大间隔之间随机生成一个时间
+        nextSpawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
     }
 
     void SpawnEnemy()
     {
-        if (enemyPrefab == null || spawnPoints.Length == 0)
+        if (enemyPrefab == null || enemyPrefab.Length == 0 || spawnPoints.Length == 0)
         {
             Debug.LogWarning("Enemy prefab or spawn points not set!");
             return;
@@ -56,13 +56,12 @@ public class EnemySpawn : MonoBehaviour
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
         // 实例化怪物
-        int enemyindex = Random.Range(0, enemyPrefab.Length);
-        GameObject enemy = Instantiate(enemyPrefab[enemyindex], spawnPoint.position, spawnPoint.rotation);
+        int enemyIndex = Random.Range(0, enemyPrefab.Length);
+        GameObject enemy = Instantiate(enemyPrefab[enemyIndex], spawnPoint.position, spawnPoint.rotation);
 
         // 增加怪物计数
         currentEnemyCount++;
-
     }
 
-    
+
 }
