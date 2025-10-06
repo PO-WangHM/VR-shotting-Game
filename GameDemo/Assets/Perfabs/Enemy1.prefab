@@ -148,4 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialHealth: 10
   xpValue: 50
+  coinValue: 5
+  scoreValue: 10
   moveSpeed: 10

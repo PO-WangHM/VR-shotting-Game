@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Settings")]
     public float InitialHealth = 5f; // 敌人初始生命值
     public float xpValue = 50f; // 击败敌人获得的经验值
+    public float coinValue = 5; //击败敌人获得金币
+    public float scoreValue = 10; //击败敌人增加得分
     [Header("Movement Settings")]
     public float moveSpeed = 3f; // 怪物移动速度
 
@@ -14,6 +16,9 @@ public class Enemy : MonoBehaviour
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
 
+    //玩家物体信息
+    GameObject playerObj; 
+    
 
     //接收火属性子弹属性参数
     protected float CD = 0; //持续伤害值
@@ -100,6 +105,14 @@ public class Enemy : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            playerObj = GameObject.Find("Player");
+            OutputPlayerValue opv = playerObj.gameObject.GetComponent<OutputPlayerValue>();
+            if(opv!=null)
+            {
+                opv.getXP(xpValue);
+                opv.getCoin(coinValue);
+                opv.getScore(scoreValue);
+            }
             Destroy(gameObject);
         }
     }
