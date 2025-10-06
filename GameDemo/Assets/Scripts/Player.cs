@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
             HP -= 100;
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.name.Contains ("flyobject"))
+        {
+            HP -= 50;
+        }
     }
     void Die()
     {
