@@ -20,14 +20,13 @@ public class ShooterEnemy : Enemy
 
     public override void Start()
     {
+        base.Start();
         // 初始化引用
         InitializeReferences();
 
         // 开始发射协程
         StartCoroutine(LaunchRoutine());
 
-        currentHealth = InitialHealth;
-        currentspeed = moveSpeed;
 
         // 创建一个空对象作为发射物的临时父级
         GameObject tempParent = new GameObject("ProjectileParent");

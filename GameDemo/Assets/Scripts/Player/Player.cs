@@ -11,7 +11,8 @@ public class Player : MonoBehaviour, OutputPlayerValue
     public Text coinText; //金币展示
     public Text scoreText;//得分展示
     public Text levelText;//等级展示
-    public Text damageText;//子弹伤害
+    public Text damageText;//子弹伤害展示
+    public Text hpText;//血量展示
     //火属性子弹面板展示
     public Text continueText;//持续伤害
     public Text continuetimeText;//持续伤害时间
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
     {
         Die();
         LevelUp();
-        TextChange();
+        ShowValue();
         Continue();
     }
 
@@ -90,7 +91,8 @@ public class Player : MonoBehaviour, OutputPlayerValue
 
     }
 
-    void TextChange()
+    //数值展示
+    void ShowValue()
     {
         xpText.text = "XP: " + XP;
         coinText.text = "Coin: " + Coin;
@@ -99,6 +101,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         damageText.text = "Damage: " + damage;
         continueText.text = "Continuous Damage: " + continuedamage;
         continuetimeText.text = "Continuous Time: " + continuetime;
+        hpText.text = "HP: " + HP;
     }
 
     public void getXP(float xpValue)

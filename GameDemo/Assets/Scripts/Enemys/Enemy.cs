@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Health Bar Reference")]
+    public Slider healthSlider;
+
     [Header("Enemy Settings")]
     public float InitialHealth = 5f; // 敌人初始生命值
     public float xpValue = 50f; // 击败敌人获得的经验值
@@ -38,6 +42,7 @@ public class Enemy : MonoBehaviour
     {
         currentHealth = InitialHealth;
         currentspeed = moveSpeed;
+        InitializeHealthBar();
     }
 
     // Update is called once per frame
@@ -98,6 +103,7 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= damage;
         damage = 0; // 重置伤害值，防止持续扣血
+        UpdateHealthBar();//更新血条
     }
 
     //怪物死亡
@@ -174,7 +180,8 @@ public class Enemy : MonoBehaviour
     //火属性子弹持续伤害效果
     void TakeContinuousDamage()
     {
-        currentHealth -= CD;  
+        currentHealth -= CD;
+        UpdateHealthBar();//更新血条
     }
 
     //冰属性子弹减速效果
@@ -182,5 +189,43 @@ public class Enemy : MonoBehaviour
     {
         currentspeed = currentspeed * SR;
         SR = 0;
+    }
+
+    //怪物血条初始化
+    protected virtual void InitializeHealthBar()
+    {
+        // 如果未手动赋值，尝试自动查找
+        if (healthSlider == null)
+        {
+            healthSlider = GetComponentInChildren<Slider>();
+        }
+
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = InitialHealth;
+            healthSlider.value = currentHealth;
+
+            // 可选：开始时隐藏血条，受伤时再显示
+            // healthSlider.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("Health Slider not found on enemy: " + gameObject.name);
+        }
+    }
+
+    // 更新怪物血条
+    protected virtual void UpdateHealthBar()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth;
+
+            // 可选：受伤时显示血条
+            // if (!healthSlider.gameObject.activeInHierarchy)
+            // {
+            //     healthSlider.gameObject.SetActive(true);
+            // }
+        }
     }
 }
