@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
 
 
     private float XP = 0;    //经验
-    private float levelupXP = 100;//升级所需经验
+    private float levelupXP = 1000;//升级所需经验
     private int Level = 1;  //等级
     private float Coin = 0;  //金币
     private float Score = 0; //得分

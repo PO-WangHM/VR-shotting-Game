@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Health Bar Reference")]
     public Slider healthSlider;
+    public Text healthText;
 
     [Header("Enemy Settings")]
     public float InitialHealth = 5f; // 敌人初始生命值
@@ -16,13 +17,17 @@ public class Enemy : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 3f; // 怪物移动速度
 
-
+    protected float currentTurnHealth;//当前轮次的最大生命
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
 
     //玩家物体信息
-    GameObject playerObj; 
-    
+    GameObject playerObj;
+    GameObject planeObj;
+
+    //轮次信息
+    protected int turn = 1;
+    private bool HPisChange = false;
 
     //接收火属性子弹属性参数
     protected float CD = 0; //持续伤害值
@@ -55,8 +60,15 @@ public class Enemy : MonoBehaviour
         //怪物移动
         Move();
 
-        // 当生命值小于等于0时怪物死亡
-        Die();
+        //获取轮次
+        getTurn();
+        if(!HPisChange)
+        {
+            HPChange();
+            HPisChange = true;
+        }
+
+        
 
         //火子弹命中造成持续伤害效果
         if(CT != 0)
@@ -94,8 +106,9 @@ public class Enemy : MonoBehaviour
                 currentspeed = moveSpeed;
             }
         }
-        
 
+        // 当生命值小于等于0时怪物死亡
+        Die();
     }
      
     //计算怪物受到伤害
@@ -119,6 +132,7 @@ public class Enemy : MonoBehaviour
                 opv.getCoin(coinValue);
                 opv.getScore(scoreValue);
             }
+            FindObjectOfType<EnemySpawn>().EnemyDefeated();
             Destroy(gameObject);
         }
     }
@@ -202,8 +216,7 @@ public class Enemy : MonoBehaviour
 
         if (healthSlider != null)
         {
-            healthSlider.maxValue = InitialHealth;
-            healthSlider.value = currentHealth;
+            healthSlider.value = currentHealth/currentTurnHealth;
 
             // 可选：开始时隐藏血条，受伤时再显示
             // healthSlider.gameObject.SetActive(false);
@@ -219,13 +232,30 @@ public class Enemy : MonoBehaviour
     {
         if (healthSlider != null)
         {
-            healthSlider.value = currentHealth;
-
-            // 可选：受伤时显示血条
-            // if (!healthSlider.gameObject.activeInHierarchy)
-            // {
-            //     healthSlider.gameObject.SetActive(true);
-            // }
+            healthSlider.value = currentHealth / currentTurnHealth;
+        }
+        if (healthText != null)
+        {
+            healthText.text = "" + currentHealth;
         }
     }
+
+    //获取轮次信息
+    void getTurn()
+    {
+        planeObj  = GameObject.Find("Plane");
+        OutputTurn ot = planeObj.gameObject.GetComponent<OutputTurn>();
+        if (ot != null)
+        {
+            turn = ot.outputTurn();
+        }
+    }
+
+    //怪物血量更新
+    void HPChange()
+    {
+        currentTurnHealth = InitialHealth + (15 * (turn - 1));
+        currentHealth = currentTurnHealth;
+    }
+
 }
