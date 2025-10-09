@@ -13,13 +13,13 @@ public class Player : MonoBehaviour, OutputPlayerValue
     public Text levelText;//等级展示
     public Text damageText;//子弹伤害展示
     public Text hpText;//血量展示
+    public Text turnText;
     //火属性子弹面板展示
     public Text continueText;//持续伤害
     public Text continuetimeText;//持续伤害时间
 
-
     private float XP = 0;    //经验
-    private float levelupXP = 1000;//升级所需经验
+    private float levelupXP = 100;//升级所需经验
     private int Level = 1;  //等级
     private float Coin = 0;  //金币
     private float Score = 0; //得分
@@ -29,13 +29,15 @@ public class Player : MonoBehaviour, OutputPlayerValue
     private float continuedamage = 0;
     private float continuetime = 0;
 
-
-
+    //轮次信息;
+    private GameObject planeObj;
+    private int turn;
+    private bool isRoundBreak = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        planeObj = GameObject.Find("Plane");
     }
 
     // Update is called once per frame
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         LevelUp();
         ShowValue();
         Continue();
+        getTurn();
     }
 
     public virtual void OnTriggerEnter(Collider collision)
@@ -55,11 +58,12 @@ public class Player : MonoBehaviour, OutputPlayerValue
             HP -= 100;
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.name.Contains ("flyobject"))
+        if (collision.gameObject.name.Contains("flyobject"))
         {
             HP -= 50;
         }
     }
+
     void Die()
     {
         if (HP <= 0)
@@ -71,24 +75,30 @@ public class Player : MonoBehaviour, OutputPlayerValue
     //升级
     void LevelUp()
     {
-        if (XP>=levelupXP)
+        if (XP >= levelupXP)
         {
             Level++;
             XP = XP - levelupXP;
             levelupXP = levelupXP + 50;
         }
     }
+
     //根据时间不断增加得分于金币
     void Continue()
     {
+        // 如果处于轮次间隔，不增加金币和得分
+        if (isRoundBreak)
+        {
+            return;
+        }
+
         timer += Time.deltaTime;
-        if(timer>= 1)
+        if (timer >= 1)
         {
             Score += 10;
             Coin += 5;
             timer = 0;
         }
-
     }
 
     //数值展示
@@ -102,6 +112,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         continueText.text = "Continuous Damage: " + continuedamage;
         continuetimeText.text = "Continuous Time: " + continuetime;
         hpText.text = "HP: " + HP;
+        turnText.text = "Turn: " + turn;
     }
 
     public void getXP(float xpValue)
@@ -119,13 +130,12 @@ public class Player : MonoBehaviour, OutputPlayerValue
         Score += scoreValue;
     }
 
-
     public void getDamage(float currentDamageValue)
     {
         damage = currentDamageValue;
     }
 
-   public void getContinueDamage(float countinuousDamage)
+    public void getContinueDamage(float countinuousDamage)
     {
         continuedamage = countinuousDamage;
     }
@@ -138,5 +148,16 @@ public class Player : MonoBehaviour, OutputPlayerValue
     public float outputLevel()
     {
         return Level;
+    }
+
+    //获取轮次
+    void getTurn()
+    {
+        OutputTurn ot = planeObj.gameObject.GetComponent<OutputTurn>();
+        if (ot != null)
+        {
+            turn = ot.outputTurn();
+            isRoundBreak = ot.outputRoundBreak();
+        }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EnemySpawn : MonoBehaviour, OutputTurn
 {
-    public Text turnText;
 
     [Header("Enemy Settings")]
     public GameObject[] enemyPrefab; // 怪物预制体
@@ -69,7 +68,6 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
             SetRandomSpawnInterval();
         }
 
-        turnText.text = "Turn: " + turns;
     }
 
     void SetRandomSpawnInterval()
@@ -89,13 +87,42 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
         // 随机选择一个生成点
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
+        // 根据轮次决定生成哪种怪物
+        int enemyIndex = GetEnemyIndexByRound();
+
         // 实例化怪物
-        int enemyIndex = Random.Range(0, enemyPrefab.Length);
         GameObject enemy = Instantiate(enemyPrefab[enemyIndex], spawnPoint.position, spawnPoint.rotation);
 
         // 增加怪物计数
         currentEnemyCount++;
         enemiesSpawnedThisRound++;
+    }
+
+    // 根据轮次决定生成哪种怪物
+    int GetEnemyIndexByRound()
+    {
+        // 第一轮只生成第一种怪物（索引0）
+        if (turns == 1)
+        {
+            return 0;
+        }
+        // 第二轮及以后按照8:2的比例生成怪物
+        else
+        {
+            // 生成一个0到1之间的随机数
+            float randomValue = Random.Range(0f, 1f);
+
+            // 如果随机数小于0.8，生成第一种怪物（80%概率）
+            // 否则生成第二种怪物（20%概率）
+            if (randomValue < 0.8f)
+            {
+                return 0; // 第一种怪物
+            }
+            else
+            {
+                return 1; // 第二种怪物
+            }
+        }
     }
 
     // 开始新的轮次
@@ -120,7 +147,7 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
 
         // 进入下一轮
         turns++;
-        maxEnemies += 10; // 每轮增加10个怪物
+        maxEnemies += 5; // 每轮增加5个怪物
 
         Debug.Log($"Round completed! Starting break. Next round: {turns}, Max enemies: {maxEnemies}");
     }
@@ -134,9 +161,14 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
         if (currentEnemyCount < 0)
             currentEnemyCount = 0;
     }
-   
+
     public int outputTurn()
     {
         return turns;
+    }
+
+    public bool outputRoundBreak()
+    {
+        return isRoundBreak;
     }
 }

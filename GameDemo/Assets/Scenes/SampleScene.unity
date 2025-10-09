@@ -456,9 +456,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30dd6bcf56213347962dc2d526ba359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnText: {fileID: 1046224492}
   enemyPrefab:
   - {fileID: 7738383259553791415, guid: f55f6ba722fda624eb3eb041f0e43dae, type: 3}
+  - {fileID: 1853603596373234493, guid: e6cc23e8670e38d4fbd6b5c4d083e33f, type: 3}
   spawnPoints:
   - {fileID: 1600209239}
   minSpawnInterval: 1
@@ -1133,9 +1133,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7705807761082495156}
     - targetCorrespondingSourceObject: {fileID: 66497778809488020, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2038626282}
@@ -1285,11 +1282,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046224490}
   m_CullTransparentMesh: 1
---- !u!4 &1052429175 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-  m_PrefabInstance: {fileID: 875569857}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1555576290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,6 +1953,7 @@ MonoBehaviour:
   levelText: {fileID: 2033003792}
   damageText: {fileID: 1555576292}
   hpText: {fileID: 569822550}
+  turnText: {fileID: 1046224492}
   continueText: {fileID: 719024217}
   continuetimeText: {fileID: 535432628}
 --- !u!1 &1613188436759487944
@@ -2042,11 +2035,11 @@ Transform:
   m_GameObject: {fileID: 1613188436759487944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.63, z: 0}
+  m_LocalPosition: {x: 0, y: 2.171, z: -12.469}
   m_LocalScale: {x: 0.89020467, y: 0.89020467, z: 0.89020467}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1052429175}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7818114386954456031
 MeshFilter:
@@ -2063,6 +2056,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 447790608}
   - {fileID: 1015450910}
+  - {fileID: 7705807761082495156}
   - {fileID: 875569857}
   - {fileID: 376696362}
   - {fileID: 455426089}
