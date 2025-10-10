@@ -14,12 +14,14 @@ public class Enemy : MonoBehaviour
     public float xpValue = 50f; // 击败敌人获得的经验值
     public float coinValue = 5; //击败敌人获得金币
     public float scoreValue = 10; //击败敌人增加得分
+    public float distroyTime = 40f;//自动销毁时间
     [Header("Movement Settings")]
     public float moveSpeed = 3f; // 怪物移动速度
 
     protected float currentTurnHealth;//当前轮次的最大生命
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
+    private float distroyTimer = 0f;
 
     //玩家物体信息
     GameObject playerObj;
@@ -108,7 +110,13 @@ public class Enemy : MonoBehaviour
         }
 
         // 当生命值小于等于0时怪物死亡
+        distroyTimer += Time.deltaTime;
+        if (distroyTimer >= distroyTime)
+        {
+            currentHealth = 0;
+        }
         Die();
+        
     }
      
     //计算怪物受到伤害

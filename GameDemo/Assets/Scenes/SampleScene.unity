@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Device Simulator
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -461,11 +465,16 @@ MonoBehaviour:
   - {fileID: 1853603596373234493, guid: e6cc23e8670e38d4fbd6b5c4d083e33f, type: 3}
   spawnPoints:
   - {fileID: 1600209239}
-  minSpawnInterval: 1
-  maxSpawnInterval: 2
+  minSpawnInterval: 2
+  maxSpawnInterval: 5
   maxEnemies: 5
   breakTime: 5
   turns: 1
+--- !u!4 &473206947 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+  m_PrefabInstance: {fileID: 875569857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &523691965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,12 +1096,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.9899
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.9899
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.9899
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.541
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2218496723442559053, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1130,10 +1151,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin Hands (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 2218496723442559054, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 66497778809488020, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2038626282}
     m_AddedComponents: []
@@ -1510,7 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c435a99871f154998f8a082c6723af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallHP: 100
+  WallHP: 100000
 --- !u!1 &1627434917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,11 +1793,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869710902}
   m_CullTransparentMesh: 1
---- !u!4 &1932886094 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 66497778809488020, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-  m_PrefabInstance: {fileID: 875569857}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2033003790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,11 +1898,11 @@ Transform:
   m_GameObject: {fileID: 2038626281}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.027999878}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1190001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1932886094}
+  m_Father: {fileID: 473206947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2038626283
 MonoBehaviour:
@@ -1946,7 +1966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37961a42f99287428ae02cd851c4b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 100000
   xpText: {fileID: 523691967}
   coinText: {fileID: 1664877058}
   scoreText: {fileID: 1869710904}

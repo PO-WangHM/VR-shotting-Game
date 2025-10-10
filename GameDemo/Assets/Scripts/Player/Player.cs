@@ -56,6 +56,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         if (collision.gameObject.CompareTag("Enemy"))
         {
             HP -= 100;
+            FindObjectOfType<EnemySpawn>().EnemyDefeated();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name.Contains("flyobject"))

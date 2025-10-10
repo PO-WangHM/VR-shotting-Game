@@ -22,6 +22,7 @@ public class WallHealth : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             WallHP -= 100;
+            FindObjectOfType<EnemySpawn>().EnemyDefeated();
             Destroy(collision.gameObject);
         }
     }
