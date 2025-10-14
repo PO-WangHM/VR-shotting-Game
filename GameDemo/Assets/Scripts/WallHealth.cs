@@ -5,6 +5,7 @@ using UnityEngine;
 public class WallHealth : MonoBehaviour
 {
     public float WallHP = 100f;
+    public GameObject GameOverPanel;//结束面板展示
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class WallHealth : MonoBehaviour
         if (WallHP <= 0)
         {
             Time.timeScale = 0f;
+            GameOverPanel.gameObject.SetActive(true);
         }
     }
 }

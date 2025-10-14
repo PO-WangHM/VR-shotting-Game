@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, OutputPlayerValue
     public Text levelText;//等级展示
     public Text damageText;//子弹伤害展示
     public Text hpText;//血量展示
-    public Text turnText;
+    public Text turnText;//轮次展示
+    public GameObject GameOverPanel;//结束面板展示
     //火属性子弹面板展示
     public Text continueText;//持续伤害
     public Text continuetimeText;//持续伤害时间
@@ -70,6 +71,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         if (HP <= 0)
         {
             Time.timeScale = 0f;
+            GameOverPanel.gameObject.SetActive(true);
         }
     }
 
