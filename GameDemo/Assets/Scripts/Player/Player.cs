@@ -62,7 +62,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         }
         if (collision.gameObject.name.Contains("flyobject"))
         {
-            HP -= 50;
+            HP -= 25;
         }
     }
 

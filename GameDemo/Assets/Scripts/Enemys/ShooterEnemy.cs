@@ -5,8 +5,8 @@ using UnityEngine;
 public class ShooterEnemy : Enemy
 {
     [Header("ShootingSetting")]
-    public float launchInterval = 2f;    // 发射间隔
-    public float projectileSpeed = 10f;  // 发射物速度
+    public float launchInterval = 3f;    // 发射间隔
+    public float projectileSpeed = 15f;  // 发射物速度
 
     [Header("Using")]
     public Transform flyObject;          // 子物体引用

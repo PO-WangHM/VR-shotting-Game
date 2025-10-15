@@ -11,13 +11,16 @@ public class Enemy : MonoBehaviour
 
     [Header("Enemy Settings")]
     public float InitialHealth = 5f; // 敌人初始生命值
-    public float xpValue = 50f; // 击败敌人获得的经验值
-    public float coinValue = 5; //击败敌人获得金币
-    public float scoreValue = 10; //击败敌人增加得分
+    public float IxpValue = 50f; // 击败敌人获得的经验值
+    public float IcoinValue = 5; //击败敌人获得金币
+    public float IscoreValue = 10; //击败敌人增加得分
     public float distroyTime = 40f;//自动销毁时间
     [Header("Movement Settings")]
     public float moveSpeed = 3f; // 怪物移动速度
 
+    protected float xpValue = 0; //怪物当前经验值
+    protected float coinValue = 5; //击败敌人获得金币
+    protected float scoreValue = 10; //击败敌人增加得分
     protected float currentTurnHealth;//当前轮次的最大生命
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
@@ -29,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     //轮次信息
     protected int turn = 1;
-    private bool HPisChange = false;
+    private bool ValueisChange = false;
 
     //接收火属性子弹属性参数
     protected float CD = 0; //持续伤害值
@@ -64,10 +67,10 @@ public class Enemy : MonoBehaviour
 
         //获取轮次
         getTurn();
-        if(!HPisChange)
+        if(!ValueisChange)
         {
-            HPChange();
-            HPisChange = true;
+            ValueChange();
+            ValueisChange = true;
         }
 
         
@@ -259,11 +262,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //怪物血量更新
-    void HPChange()
+    //怪物数值更新
+    void ValueChange()
     {
-        currentTurnHealth = InitialHealth + (15 * (turn - 1));
+        currentTurnHealth = (float)(InitialHealth * (1 + 0.2 * (turn - 1)));
         currentHealth = currentTurnHealth;
+        xpValue = (float)(IxpValue * (1 + 0.25 * (turn - 1)));
+        coinValue = (float)(IcoinValue * (1 + 0.25 * (turn - 1)));
+        scoreValue = (float)(IscoreValue * (1 + 0.25 * (turn - 1)));
     }
 
 }
