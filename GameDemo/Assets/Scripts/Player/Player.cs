@@ -82,7 +82,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         {
             Level++;
             XP = XP - levelupXP;
-            levelupXP = levelupXP + 50;
+            levelupXP = levelupXP + 100;
         }
     }
 

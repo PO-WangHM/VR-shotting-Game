@@ -121,10 +121,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 7368186610813693907}
+  healthText: {fileID: 0}
   InitialHealth: 15
-  xpValue: 50
-  coinValue: 5
-  scoreValue: 10
+  IxpValue: 50
+  IcoinValue: 5
+  IscoreValue: 10
+  distroyTime: 40
   moveSpeed: 3
   launchInterval: 2
   projectileSpeed: 10

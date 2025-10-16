@@ -19,12 +19,16 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
     public float breakTime = 10f; // 轮次间隔时间
     public int turns = 1; // 当前轮次
 
+    public Text BreakTimeText;
+    public GameObject BreakTimePanel;
+
     private float timer = 0f;
     private float nextSpawnInterval; // 下一次生成的间隔时间
     private int currentEnemyCount = 0;
     private int enemiesSpawnedThisRound = 0; // 本轮已生成的怪物数量
     private bool isRoundBreak = false; // 是否处于轮次间隔
     private float breakTimer = 0f; // 轮次间隔计时器
+    private int breakTimer2 = 0;
 
     void Start()
     {
@@ -39,9 +43,13 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
         {
             // 轮次间隔计时
             breakTimer += Time.deltaTime;
+            BreakTimePanel.gameObject.SetActive(true);
+            breakTimer2 = (int)(breakTime - breakTimer)+1;
+            BreakTimeText.text = breakTimer2 + "s";
             if (breakTimer >= breakTime)
             {
                 StartNewRound();
+                BreakTimePanel.gameObject.SetActive(false);
             }
             return;
         }
@@ -114,7 +122,7 @@ public class EnemySpawn : MonoBehaviour, OutputTurn
 
             // 如果随机数小于0.8，生成第一种怪物（80%概率）
             // 否则生成第二种怪物（20%概率）
-            if (randomValue < 0.8f)
+            if (randomValue < 0.7f)
             {
                 return 0; // 第一种怪物
             }
