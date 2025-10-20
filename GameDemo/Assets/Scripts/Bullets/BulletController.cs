@@ -13,11 +13,14 @@ public class BulletController : MonoBehaviour
     [Header("Shooting Rate")]
     public float shotsPerSecond = 5f; // 每秒发射子弹数（射速）
 
+    private GameObject playerObj; //玩家物体
     private bool isRoundBreak = false;
     private GameObject planeObj;
     private OutputTurn outputTurnScript;
     private float timer = 0f;
     private float shootInterval; // 发射间隔（根据射速计算）
+    private float PlayerLevel = 1;//角色等级
+    private bool isShootValue = false;//发射是否更改
 
     void Start()
     {
@@ -51,12 +54,22 @@ public class BulletController : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= shootInterval)
         {
-            FireBullet();
+            ShootBullet();
             timer = 0f;
         }
+        //获取玩家等级
+        DamageCalculate();
+        if(PlayerLevel == 10 && isShootValue == false)
+        {
+            shootValueChange();
+            shootInterval = 1f / shotsPerSecond;
+            isShootValue = true;
+        }
+
     }
 
-    void FireBullet()
+    //发射子弹
+    void ShootBullet()
     {
         if (bulletPrefab == null || bulletPrefab.Length == 0 || spawnPoint == null)
         {
@@ -110,5 +123,21 @@ public class BulletController : MonoBehaviour
 
         // 获取轮次间隔状态
         isRoundBreak = outputTurnScript.outputRoundBreak();
+    }
+
+    public void DamageCalculate()
+    {
+        playerObj = GameObject.Find("Player");
+        OutputPlayerValue opv = playerObj.gameObject.GetComponent<OutputPlayerValue>();
+        if (opv != null)
+        {
+            PlayerLevel = opv.outputLevel();
+        }
+    }
+
+    public void shootValueChange()
+    {
+        shotsPerSecond = (float)(shotsPerSecond * 1.5);//射速提升
+        bulletSpeed = (float)(bulletSpeed * 2); //移动速度提升
     }
 }

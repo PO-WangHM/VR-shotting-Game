@@ -123,7 +123,7 @@ MonoBehaviour:
   healthSlider: {fileID: 7368186610813693907}
   healthText: {fileID: 0}
   InitialHealth: 15
-  IxpValue: 50
+  IxpValue: 80
   IcoinValue: 5
   IscoreValue: 10
   distroyTime: 40

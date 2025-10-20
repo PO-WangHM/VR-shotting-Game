@@ -10,7 +10,7 @@ public class BulletAttack : MonoBehaviour, OutputBulletValues
 
     //玩家信息
     protected GameObject playerObj;
-    private float PlayerLevel = 1;//玩家等级
+    protected float PlayerLevel = 1;//玩家等级
 
     public virtual void Start()
     {

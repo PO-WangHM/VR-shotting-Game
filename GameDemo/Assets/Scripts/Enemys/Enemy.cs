@@ -265,9 +265,9 @@ public class Enemy : MonoBehaviour
     //怪物数值更新
     void ValueChange()
     {
-        currentTurnHealth = (float)(InitialHealth * (1 + 0.5 * (turn - 1)));
+        currentTurnHealth = (float)(InitialHealth * (1 + 1 * (turn - 1)));
         currentHealth = currentTurnHealth;
-        xpValue = (float)(IxpValue * (1 + 0.25 * (turn - 1)));
+        xpValue = (float)(IxpValue * (1 + 0.5 * (turn - 1)));
         coinValue = (float)(IcoinValue * (1 + 0.25 * (turn - 1)));
         scoreValue = (float)(IscoreValue * (1 + 0.25 * (turn - 1)));
     }

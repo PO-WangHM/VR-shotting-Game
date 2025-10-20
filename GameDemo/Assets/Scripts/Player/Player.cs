@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour, OutputPlayerValue
 {
+    [Header("Health Setting")]
     public float HP = 100;
+    public float currentHP = 0;
 
+    [Header("Bullet Spawns Setting")]
+    public GameObject[] BulletsSpawns;
+
+    [Header("Panel Setting")]
     public Text xpText; //经验展示
     public Text coinText; //金币展示
     public Text scoreText;//得分展示
@@ -15,14 +21,18 @@ public class Player : MonoBehaviour, OutputPlayerValue
     public Text hpText;//血量展示
     public Text turnText;//轮次展示
     public GameObject GameOverPanel;//结束面板展示
+    public GameObject WarnPanel;//商店提示面板
     //火属性子弹面板展示
     public Text continueText;//持续伤害
     public Text continuetimeText;//持续伤害时间
 
+    [Header("Button Setting")]
+    public GameObject[] BuyButtons;
+
     private float XP = 0;    //经验
     private float levelupXP = 100;//升级所需经验
     private int Level = 1;  //等级
-    private float Coin = 0;  //金币
+    private float Coin = 2000;  //金币
     private float Score = 0; //得分
     private float timer = 0;//计时器
     private float damage = 0;//子弹基础伤害
@@ -39,6 +49,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
     void Start()
     {
         planeObj = GameObject.Find("Plane");
+        currentHP = HP;
     }
 
     // Update is called once per frame
@@ -49,6 +60,12 @@ public class Player : MonoBehaviour, OutputPlayerValue
         ShowValue();
         Continue();
         getTurn();
+        //等级提升带来特殊增益
+        //10级开启第二枪口
+        if (Level==5)
+        {
+            secondBS();
+        }
     }
 
     public virtual void OnTriggerEnter(Collider collision)
@@ -56,19 +73,19 @@ public class Player : MonoBehaviour, OutputPlayerValue
         // 检查是否碰撞到敌人
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            HP -= 100;
+            currentHP -= 100;
             FindObjectOfType<EnemySpawn>().EnemyDefeated();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name.Contains("flyobject"))
         {
-            HP -= 25;
+            currentHP -= 25;
         }
     }
 
     void Die()
     {
-        if (HP <= 0)
+        if (currentHP <= 0)
         {
             Time.timeScale = 0f;
             GameOverPanel.gameObject.SetActive(true);
@@ -114,7 +131,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         damageText.text = "Damage: " + damage;
         continueText.text = "Continuous Damage: " + continuedamage;
         continuetimeText.text = "Continuous Time: " + continuetime;
-        hpText.text = "HP: " + HP;
+        hpText.text = "HP: " + currentHP + "/" + HP;
         turnText.text = "Turn: " + turn;
     }
 
@@ -163,4 +180,79 @@ public class Player : MonoBehaviour, OutputPlayerValue
             isRoundBreak = ot.outputRoundBreak();
         }
     }
+
+    //开启第二枪口
+    public void secondBS()
+    {
+        BulletsSpawns[1].gameObject.SetActive(true);
+    }
+
+    //购买火子弹
+    public void thirdBS()
+    {
+        if(Coin >= 1000)
+        {
+            Coin = Coin - 1000;
+            BulletsSpawns[2].gameObject.SetActive(true);
+            BuyButtons[0].gameObject.SetActive(false);
+        }
+        else
+        {
+            WarnPanel.gameObject.SetActive(true);
+        }
+
+
+    }
+    public void forethBS()
+    {
+        if(Coin >= 2000)
+        {
+            Coin = Coin - 2000;
+            BulletsSpawns[3].gameObject.SetActive(true);
+            BuyButtons[1].gameObject.SetActive(false);
+        }
+        else
+        {
+            WarnPanel.gameObject.SetActive(true);
+        }
+
+    }
+
+    public void HPLimitButton()
+    {
+        if(Coin >= 2000 )
+        {
+            Coin = Coin - 2000;
+            HP += 100;
+            currentHP = HP;
+            BuyButtons[2].gameObject.SetActive(false);//购买一次后无法购买
+        }
+        else
+        {
+            WarnPanel.gameObject.SetActive(true);
+        }
+    }
+    public void HPRecoverButton()
+    {
+        if (Coin >= 500)
+        {
+            if(currentHP != HP)
+            {
+                Coin = Coin - 500;
+                if (currentHP + 50 > HP)
+                {
+                    currentHP = HP;
+                }
+                else
+                {
+                    currentHP += 50;
+                }
+            }
+        }
+        else
+        {
+            WarnPanel.gameObject.SetActive(true);
+        }
+    }
+
 }
