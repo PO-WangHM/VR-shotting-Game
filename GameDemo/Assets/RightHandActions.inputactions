@@ -1,0 +1,54 @@
+{
+    "name": "RightHandActions",
+    "maps": [
+        {
+            "name": "XRI RightHand",
+            "id": "8a4ee8fc-e8fe-4d0f-8517-f4d3175cf3e7",
+            "actions": [
+                {
+                    "name": "PrimaryButton",
+                    "type": "Button",
+                    "id": "6d1f216e-8885-406e-a23c-a17d3920db6c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ButtonX",
+                    "type": "Button",
+                    "id": "34969a74-558c-4ef1-941d-e6b5e730928b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2214830c-141e-4ac7-b9dd-6313f343c10f",
+                    "path": "<XRInputV1::Oculus::MetaQuestTouchPlusControllerOpenXR>{RightHand}/primarybutton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ffd387b3-b173-45ca-aa3f-494bcbf417e2",
+                    "path": "<XRInputV1::Oculus::MetaQuestTouchPlusControllerOpenXR>{LeftHand}/primarybutton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ButtonX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

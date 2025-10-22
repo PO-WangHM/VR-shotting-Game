@@ -2398,7 +2398,7 @@
                     "name": "Teleport Mode Cancel",
                     "type": "Button",
                     "id": "d587b60c-39a0-4365-8075-477ce484ba0f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -2434,7 +2434,7 @@
                     "name": "Grab Move",
                     "type": "Button",
                     "id": "cfb29d37-3db0-4e5d-a73b-7d48a19e279e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -2443,7 +2443,16 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "01c7fda4-9c15-4167-8b87-58024f21d903",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Button A",
+                    "type": "Button",
+                    "id": "e9a15369-f9e2-4959-8be8-36de24c66ef0",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -2524,6 +2533,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8855d742-0e9b-4e02-a9f1-062393c851eb",
+                    "path": "<OculusTouchController>/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button A",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
