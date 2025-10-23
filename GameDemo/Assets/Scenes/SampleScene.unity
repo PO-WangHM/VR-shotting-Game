@@ -470,6 +470,8 @@ MonoBehaviour:
   maxEnemies: 5
   breakTime: 5
   turns: 1
+  BreakTimeText: {fileID: 0}
+  BreakTimePanel: {fileID: 0}
 --- !u!4 &473206947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
@@ -1536,6 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WallHP: 100000
+  GameOverPanel: {fileID: 0}
 --- !u!1 &1627434917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,6 +1970,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100000
+  currentHP: 0
+  BulletsSpawns: []
   xpText: {fileID: 523691967}
   coinText: {fileID: 1664877058}
   scoreText: {fileID: 1869710904}
@@ -1974,8 +1979,11 @@ MonoBehaviour:
   damageText: {fileID: 1555576292}
   hpText: {fileID: 569822550}
   turnText: {fileID: 1046224492}
+  GameOverPanel: {fileID: 0}
+  WarnPanel: {fileID: 0}
   continueText: {fileID: 719024217}
   continuetimeText: {fileID: 535432628}
+  BuyButtons: []
 --- !u!1 &1613188436759487944
 GameObject:
   m_ObjectHideFlags: 0
