@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WallHealth : MonoBehaviour
 {
-    public float WallHP = 100f;
+    public float WallHP = 100;
     public GameObject GameOverPanel;//结束面板展示
 
     void Start()
@@ -17,11 +17,14 @@ public class WallHealth : MonoBehaviour
         Die();
     }
 
-    public virtual void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        // 检查是否碰撞到敌人
+        Debug.Log("Collision detected with: " + collision.gameObject.name);
+        Debug.Log("Tag: " + collision.gameObject.tag);
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("Enemy hit the wall! WallHP: " + WallHP);
             WallHP -= 100;
             FindObjectOfType<EnemySpawn>().EnemyDefeated();
             Destroy(collision.gameObject);

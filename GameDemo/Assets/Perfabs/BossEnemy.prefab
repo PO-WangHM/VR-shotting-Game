@@ -680,15 +680,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 7861314467007680725}
   healthText: {fileID: 1240103112449149746}
-  InitialHealth: 100
+  InitialHealth: 50
   IxpValue: 200
   IcoinValue: 50
   IscoreValue: 100
   distroyTime: 40
   moveSpeed: 2
   launchInterval: 0.5
-  volleyInterval: 3
-  projectileSpeed: 15
+  volleyInterval: 5
+  projectileSpeed: 20
   flyObjects:
   - {fileID: 4918214217993025703}
   - {fileID: 1706607052239391163}
