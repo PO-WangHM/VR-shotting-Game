@@ -115,7 +115,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
             Level++;
             audioSource.PlayOneShot(audioClips[2]);
             XP = XP - levelupXP;
-            levelupXP = levelupXP * (float)(1 + (1.5 * (Level - 1)));
+            levelupXP = levelupXP * (float)(1 + (0.5 * (Level - 1)));
         }
     }
 

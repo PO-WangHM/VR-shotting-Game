@@ -6855,15 +6855,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab:
   - {fileID: 4328274959107598081, guid: bb1dd9862c6658c45b20f6663087ff38, type: 3}
-  - {fileID: 1853603596373234493, guid: e6cc23e8670e38d4fbd6b5c4d083e33f, type: 3}
+  - {fileID: 4328274959107598081, guid: bb1dd9862c6658c45b20f6663087ff38, type: 3}
   - {fileID: 4910301720946568622, guid: 197afba811d05a549bd00f9b597385ad, type: 3}
   spawnPoints:
   - {fileID: 617263969}
   - {fileID: 1733017982}
   - {fileID: 238127548}
-  minSpawnInterval: 1
-  maxSpawnInterval: 2
+  - {fileID: 79360228}
+  - {fileID: 347375639}
+  - {fileID: 844681671}
+  minSpawnInterval: 1.5
+  maxSpawnInterval: 3
   maxEnemies: 5
+  roundsToReduceInterval: 2
+  maxIntervalReduction: 0.1
+  minIntervalReduction: 0.05
+  minMaxInterval: 1
+  minMinInterval: 0.5
   breakTime: 2
   turns: 1
   BreakTimeText: {fileID: 2055505898}
@@ -10257,7 +10265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &912857826
 Transform:
   m_ObjectHideFlags: 0
@@ -11167,7 +11175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &965265722
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11889,7 +11897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &994956396
 RectTransform:
   m_ObjectHideFlags: 0
