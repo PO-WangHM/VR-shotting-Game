@@ -30,7 +30,9 @@ public class Enemy : MonoBehaviour
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
     private float distroyTimer = 0f;
 
-   
+    // 添加死亡状态标识
+    private bool isDead = false;
+    private bool hasRotated = false; // 标记是否已经旋转
 
     //玩家物体信息
     GameObject playerObj;
@@ -64,7 +66,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        
+        // 如果已经死亡，不再执行其他逻辑
+        if (isDead) return;
+
         // 每帧调用受伤方法
         TakeDamage();
 
@@ -73,27 +77,23 @@ public class Enemy : MonoBehaviour
 
         //获取轮次
         getTurn();
-        if(!ValueisChange)
+        if (!ValueisChange)
         {
             ValueChange();
             ValueisChange = true;
         }
 
-        
-
         //火子弹命中造成持续伤害效果
-        if(CT != 0)
+        if (CT != 0)
         {
             Firetimer1 += Time.deltaTime;
             Firetimer2 += Time.deltaTime;
-            if(Firetimer1 >= pertime)
+            if (Firetimer1 >= pertime)
             {
-                
-                
                 TakeContinuousDamage();
                 Firetimer1 = 0;
             }
-            if(Firetimer2 > CT)
+            if (Firetimer2 > CT)
             {
                 CT = 0;
                 CD = 0;
@@ -102,15 +102,15 @@ public class Enemy : MonoBehaviour
         }
 
         //冰子弹命中造成减速效果
-        if(ST != 0)
+        if (ST != 0)
         {
-            if(SR != 0)
+            if (SR != 0)
             {
                 SlowDown();
             }
 
             Icetimer += Time.deltaTime;
-            if(Icetimer >= ST)
+            if (Icetimer >= ST)
             {
                 ST = 0;
                 Icetimer = 0;
@@ -125,9 +125,8 @@ public class Enemy : MonoBehaviour
             currentHealth = 0;
         }
         Die();
-        
     }
-     
+
     //计算怪物受到伤害
     public virtual void TakeDamage()
     {
@@ -139,20 +138,58 @@ public class Enemy : MonoBehaviour
     //怪物死亡
     public virtual void Die()
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDead)
         {
+            isDead = true;
+
+            // 关闭碰撞体
+            Collider collider = GetComponent<Collider>();
+            if (collider != null)
+                collider.enabled = false;
+
+            // 停止移动
+            currentspeed = 0f;
+
+            // 播放死亡音效
             audioSource.PlayOneShot(audioClips[4]);
+
+            // 给玩家奖励
             playerObj = GameObject.Find("Player");
             OutputPlayerValue opv = playerObj.gameObject.GetComponent<OutputPlayerValue>();
-            if(opv!=null)
+            if (opv != null)
             {
                 opv.getXP(xpValue);
                 opv.getCoin(coinValue);
                 opv.getScore(scoreValue);
             }
+
+            // 通知生成器
             FindObjectOfType<EnemySpawn>().EnemyDefeated();
-            Destroy(gameObject);
+
+            // 执行死亡旋转
+            PerformDeathRotation();
+
+            // 1秒后销毁物体
+            StartCoroutine(DestroyAfterDelay(1f));
         }
+    }
+
+    // 执行死亡旋转
+    private void PerformDeathRotation()
+    {
+        if (!hasRotated)
+        {
+            // 绕X轴旋转90度
+            transform.Rotate(90f, 0f, 0f);
+            hasRotated = true;
+        }
+    }
+
+    // 延迟销毁协程
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 
     //怪物移动
@@ -164,6 +201,9 @@ public class Enemy : MonoBehaviour
     //碰撞检测
     public virtual void OnTriggerEnter(Collider collision)
     {
+        // 如果已经死亡，不再处理碰撞
+        if (isDead) return;
+
         //碰到子弹后获取子弹属性值
         if (collision.gameObject.CompareTag("Bullet"))
         {
@@ -172,7 +212,6 @@ public class Enemy : MonoBehaviour
 
             if (obv != null)
             {
-               
                 damage = obv.outputDamage();
             }
         }
@@ -195,14 +234,14 @@ public class Enemy : MonoBehaviour
                 Firetimer2 = 0;
             }
         }
-        
+
         //碰到冰属性子弹后获取冰子弹属性值
         if (collision.gameObject.name.Contains("IceBullet"))
         {
             audioSource.PlayOneShot(audioClips[2]);
             OutputIceBulletValues oibv = collision.gameObject.GetComponent<OutputIceBulletValues>();
 
-           
+
             if (oibv != null)
             {
                 // 通过接口获取冰子弹的属性值
@@ -210,13 +249,12 @@ public class Enemy : MonoBehaviour
                 SR = oibv.outputSR();
                 Icetimer = 0;
             }
-            
+
         }
         if (collision.gameObject.name.Contains("ElectricBullet"))
         {
             audioSource.PlayOneShot(audioClips[3]);
         }
-
     }
 
     //火属性子弹持续伤害效果
@@ -244,7 +282,7 @@ public class Enemy : MonoBehaviour
 
         if (healthSlider != null)
         {
-            healthSlider.value = currentHealth/currentTurnHealth;
+            healthSlider.value = currentHealth / currentTurnHealth;
 
             // 可选：开始时隐藏血条，受伤时再显示
             // healthSlider.gameObject.SetActive(false);
@@ -271,7 +309,7 @@ public class Enemy : MonoBehaviour
     //获取轮次信息
     void getTurn()
     {
-        planeObj  = GameObject.Find("Plane");
+        planeObj = GameObject.Find("Plane");
         OutputTurn ot = planeObj.gameObject.GetComponent<OutputTurn>();
         if (ot != null)
         {
@@ -288,5 +326,4 @@ public class Enemy : MonoBehaviour
         coinValue = (float)(IcoinValue * (1 + 0.25 * (turn - 1)));
         scoreValue = (float)(IscoreValue * (1 + 0.25 * (turn - 1)));
     }
-
 }

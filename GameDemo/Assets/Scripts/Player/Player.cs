@@ -93,6 +93,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
     {
         if (currentHP <= 0)
         {
+            audioSource.PlayOneShot(audioClips[3]);
             Time.timeScale = 0f;
             GameOverPanel.gameObject.SetActive(true);
         }
