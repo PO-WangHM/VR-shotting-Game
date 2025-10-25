@@ -147,6 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialDamageValue: 5
-  countinuousDamage: 5
-  countinuousTime: 3
+  ICD: 5
+  continuousTime: 3
   CDTimes: 10

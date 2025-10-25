@@ -29,6 +29,10 @@ public class Player : MonoBehaviour, OutputPlayerValue
     [Header("Button Setting")]
     public GameObject[] BuyButtons;
 
+    [Header("Audio Setting")]
+    public AudioSource audioSource;//音效组件
+    public AudioClip[] audioClips;//音效
+
     private float XP = 0;    //经验
     private float levelupXP = 100;//升级所需经验
     private int Level = 1;  //等级
@@ -73,13 +77,15 @@ public class Player : MonoBehaviour, OutputPlayerValue
         // 检查是否碰撞到敌人
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            currentHP -= 100;
+            currentHP -= 50;
+            audioSource.PlayOneShot(audioClips[0]);
             FindObjectOfType<EnemySpawn>().EnemyDefeated();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.name.Contains("flyobject"))
         {
             currentHP -= 25;
+            audioSource.PlayOneShot(audioClips[0]);
         }
     }
 
@@ -98,6 +104,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         if (XP >= levelupXP)
         {
             Level++;
+            audioSource.PlayOneShot(audioClips[2]);
             XP = XP - levelupXP;
             levelupXP = levelupXP + 100;
         }
@@ -193,6 +200,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         if(Coin >= 1000)
         {
             Coin = Coin - 1000;
+            audioSource.PlayOneShot(audioClips[1]);
             BulletsSpawns[2].gameObject.SetActive(true);
             BuyButtons[0].gameObject.SetActive(false);
         }
@@ -208,6 +216,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         if(Coin >= 2000)
         {
             Coin = Coin - 2000;
+            audioSource.PlayOneShot(audioClips[1]);
             BulletsSpawns[3].gameObject.SetActive(true);
             BuyButtons[1].gameObject.SetActive(false);
         }
@@ -223,6 +232,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
         if(Coin >= 2000 )
         {
             Coin = Coin - 2000;
+            audioSource.PlayOneShot(audioClips[1]);
             HP += 100;
             currentHP = HP;
             BuyButtons[2].gameObject.SetActive(false);//购买一次后无法购买
@@ -239,6 +249,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
             if(currentHP != HP)
             {
                 Coin = Coin - 500;
+                audioSource.PlayOneShot(audioClips[1]);
                 if (currentHP + 50 > HP)
                 {
                     currentHP = HP;

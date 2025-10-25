@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 3f; // 怪物移动速度
 
+    [Header("Audio Setting")]
+    public AudioSource audioSource;//音效组件
+    public AudioClip[] audioClips;//音效
+
     protected float xpValue = 0; //怪物当前经验值
     protected float coinValue = 5; //击败敌人获得金币
     protected float scoreValue = 10; //击败敌人增加得分
@@ -25,6 +29,8 @@ public class Enemy : MonoBehaviour
     protected float currentHealth; // 当前生命值
     protected float damage = 0f; // 受到的子弹伤害值,未碰到子弹伤害则为0
     private float distroyTimer = 0f;
+
+   
 
     //玩家物体信息
     GameObject playerObj;
@@ -135,6 +141,7 @@ public class Enemy : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            audioSource.PlayOneShot(audioClips[4]);
             playerObj = GameObject.Find("Player");
             OutputPlayerValue opv = playerObj.gameObject.GetComponent<OutputPlayerValue>();
             if(opv!=null)
@@ -169,10 +176,15 @@ public class Enemy : MonoBehaviour
                 damage = obv.outputDamage();
             }
         }
+        if (collision.gameObject.name.Contains("NormalBullet"))
+        {
+            audioSource.PlayOneShot(audioClips[0]);
+        }
 
         ////碰到火属性子弹后获取火子弹属性值
         if (collision.gameObject.name.Contains("FireBullet"))
         {
+            audioSource.PlayOneShot(audioClips[1]);
             OutputFireBulletValues ofbv = collision.gameObject.GetComponent<OutputFireBulletValues>();
             if (ofbv != null)
             {
@@ -187,6 +199,7 @@ public class Enemy : MonoBehaviour
         //碰到冰属性子弹后获取冰子弹属性值
         if (collision.gameObject.name.Contains("IceBullet"))
         {
+            audioSource.PlayOneShot(audioClips[2]);
             OutputIceBulletValues oibv = collision.gameObject.GetComponent<OutputIceBulletValues>();
 
            
@@ -198,6 +211,10 @@ public class Enemy : MonoBehaviour
                 Icetimer = 0;
             }
             
+        }
+        if (collision.gameObject.name.Contains("ElectricBullet"))
+        {
+            audioSource.PlayOneShot(audioClips[3]);
         }
 
     }
@@ -265,7 +282,7 @@ public class Enemy : MonoBehaviour
     //怪物数值更新
     void ValueChange()
     {
-        currentTurnHealth = (float)(InitialHealth * (1 + 1.5 * (turn - 1)));
+        currentTurnHealth = (float)(InitialHealth * (1 + 0.5 * (turn - 1)));
         currentHealth = currentTurnHealth;
         xpValue = (float)(IxpValue * (1 + 0.5 * (turn - 1)));
         coinValue = (float)(IcoinValue * (1 + 0.25 * (turn - 1)));
