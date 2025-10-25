@@ -9,6 +9,7 @@ public class WallHealth : MonoBehaviour
     [Header("Audio Setting")]
     public AudioSource audioSource;//音效组件
     public AudioClip[] audioClips;//音效
+    protected bool isPlayed = false;
 
     void Start()
     {
@@ -37,7 +38,12 @@ public class WallHealth : MonoBehaviour
     {
         if (WallHP <= 0)
         {
-            audioSource.PlayOneShot(audioClips[0]);
+            if(!isPlayed)
+            {
+                audioSource.PlayOneShot(audioClips[0]);
+                isPlayed = true;
+            }
+            
             Time.timeScale = 0f;
             GameOverPanel.gameObject.SetActive(true);
         }

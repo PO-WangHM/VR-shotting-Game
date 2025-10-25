@@ -49,6 +49,9 @@ public class Player : MonoBehaviour, OutputPlayerValue
     private int turn;
     private bool isRoundBreak = false;
 
+    //À¿Õˆ–≈œ¢
+    private bool isDie = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,7 +96,12 @@ public class Player : MonoBehaviour, OutputPlayerValue
     {
         if (currentHP <= 0)
         {
-            audioSource.PlayOneShot(audioClips[3]);
+            if(!isDie)
+            {
+                audioSource.PlayOneShot(audioClips[3]);
+                isDie = true;
+            }
+            
             Time.timeScale = 0f;
             GameOverPanel.gameObject.SetActive(true);
         }
@@ -107,7 +115,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
             Level++;
             audioSource.PlayOneShot(audioClips[2]);
             XP = XP - levelupXP;
-            levelupXP = levelupXP + 100;
+            levelupXP = levelupXP * (float)(1 + (1.5 * (Level - 1)));
         }
     }
 
