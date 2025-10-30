@@ -137,8 +137,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d1565d24d58d6af4fa6bb1b1a2984ec3, type: 3}
   - {fileID: 8300000, guid: 3d07733176487c944bc4a94801704fdf, type: 3}
   - {fileID: 8300000, guid: ef82e0633eb92164b83e6706e1fc4898, type: 3}
-  launchInterval: 2
-  projectileSpeed: 10
+  launchInterval: 5
+  projectileSpeed: 40
   flyObject: {fileID: 7885322787075212517}
 --- !u!82 &3112957325690604539
 AudioSource:
