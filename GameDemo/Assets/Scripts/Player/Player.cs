@@ -140,7 +140,7 @@ public class Player : MonoBehaviour, OutputPlayerValue
     //数值展示
     void ShowValue()
     {
-        xpText.text = "XP: " + XP;
+        xpText.text = "XP: " + XP + "/" + levelupXP;
         coinText.text = "Coin: " + Coin;
         scoreText.text = "Score: " + Score;
         levelText.text = "Level: " + Level;
@@ -184,6 +184,10 @@ public class Player : MonoBehaviour, OutputPlayerValue
     public float outputLevel()
     {
         return Level;
+    }
+    public float outputCoin()
+    {
+        return Coin;
     }
 
     //获取轮次

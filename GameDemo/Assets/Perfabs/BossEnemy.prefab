@@ -1175,7 +1175,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ef82e0633eb92164b83e6706e1fc4898, type: 3}
   launchInterval: 0.5
   volleyInterval: 5
-  projectileSpeed: 20
+  projectileSpeed: 30
   flyObjects:
   - {fileID: 4918214217993025703}
   - {fileID: 1706607052239391163}
@@ -1194,7 +1194,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

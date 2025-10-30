@@ -9,4 +9,5 @@ public interface OutputPlayerValue
     void getContinueDamage(float countinuousDamage);
     void getContinueTime(float countinuousTime);
     float outputLevel();
+    float outputCoin();
 }
